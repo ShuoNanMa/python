@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="zh-CN" itemscope="itemscope" itemtype="http://schema.org/Article">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="profile" href="http://gmpg.org/xfn/11">
+        <link rel="pingback" href="http://www.wangluoshenghuo.com/xmlrpc.php">
+
+        <title>python下pandas_datareader包如何从不同的数据源获取各种金融数据 - 网络生活</title>
+
+<!-- This site is optimized with the Yoast SEO plugin v12.1 - https://yoast.com/wordpress/plugins/seo/ -->
+<link rel="canonical" href="http://www.wangluoshenghuo.com/2018/01/24/python%e4%b8%8bpandas_datareader%e5%8c%85%e5%a6%82%e4%bd%95%e4%bb%8e%e4%b8%8d%e5%90%8c%e7%9a%84%e6%95%b0%e6%8d%ae%e6%ba%90%e8%8e%b7%e5%8f%96%e5%90%84%e7%a7%8d%e9%87%91%e8%9e%8d%e6%95%b0%e6%8d%ae/" />
+<meta property="og:locale" content="zh_CN" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="python下pandas_datareader包如何从不同的数据源获取各种金融数据 - 网络生活" />
+<meta property="og:description" content="网络生活站长eyeglasses翻译，原文来自：https://pandas-datareader.readtContinue reading python下pandas_datareader包如何从不同的数据源获取各种金融数据" />
+<meta property="og:url" content="http://www.wangluoshenghuo.com/2018/01/24/python%e4%b8%8bpandas_datareader%e5%8c%85%e5%a6%82%e4%bd%95%e4%bb%8e%e4%b8%8d%e5%90%8c%e7%9a%84%e6%95%b0%e6%8d%ae%e6%ba%90%e8%8e%b7%e5%8f%96%e5%90%84%e7%a7%8d%e9%87%91%e8%9e%8d%e6%95%b0%e6%8d%ae/" />
+<meta property="og:site_name" content="网络生活" />
+<meta property="article:section" content="金融" />
+<meta property="article:published_time" content="2018-01-24T07:41:45+00:00" />
+<meta property="article:modified_time" content="2018-01-24T07:58:35+00:00" />
+<meta property="og:updated_time" content="2018-01-24T07:58:35+00:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:description" content="网络生活站长eyeglasses翻译，原文来自：https://pandas-datareader.readtContinue reading python下pandas_datareader包如何从不同的数据源获取各种金融数据" />
+<meta name="twitter:title" content="python下pandas_datareader包如何从不同的数据源获取各种金融数据 - 网络生活" />
+<script type='application/ld+json' class='yoast-schema-graph yoast-schema-graph--main'>{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"http://www.wangluoshenghuo.com/#website","url":"http://www.wangluoshenghuo.com/","name":"\u7f51\u7edc\u751f\u6d3b","potentialAction":{"@type":"SearchAction","target":"http://www.wangluoshenghuo.com/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"http://www.wangluoshenghuo.com/2018/01/24/python%e4%b8%8bpandas_datareader%e5%8c%85%e5%a6%82%e4%bd%95%e4%bb%8e%e4%b8%8d%e5%90%8c%e7%9a%84%e6%95%b0%e6%8d%ae%e6%ba%90%e8%8e%b7%e5%8f%96%e5%90%84%e7%a7%8d%e9%87%91%e8%9e%8d%e6%95%b0%e6%8d%ae/#webpage","url":"http://www.wangluoshenghuo.com/2018/01/24/python%e4%b8%8bpandas_datareader%e5%8c%85%e5%a6%82%e4%bd%95%e4%bb%8e%e4%b8%8d%e5%90%8c%e7%9a%84%e6%95%b0%e6%8d%ae%e6%ba%90%e8%8e%b7%e5%8f%96%e5%90%84%e7%a7%8d%e9%87%91%e8%9e%8d%e6%95%b0%e6%8d%ae/","inLanguage":"zh-CN","name":"python\u4e0bpandas_datareader\u5305\u5982\u4f55\u4ece\u4e0d\u540c\u7684\u6570\u636e\u6e90\u83b7\u53d6\u5404\u79cd\u91d1\u878d\u6570\u636e - \u7f51\u7edc\u751f\u6d3b","isPartOf":{"@id":"http://www.wangluoshenghuo.com/#website"},"datePublished":"2018-01-24T07:41:45+00:00","dateModified":"2018-01-24T07:58:35+00:00","author":{"@id":"http://www.wangluoshenghuo.com/#/schema/person/4779ddb1ddcc4bf4a9eb4fdb7202e722"}},{"@type":["Person"],"@id":"http://www.wangluoshenghuo.com/#/schema/person/4779ddb1ddcc4bf4a9eb4fdb7202e722","name":"admin","image":{"@type":"ImageObject","@id":"http://www.wangluoshenghuo.com/#authorlogo","url":"http://2.gravatar.com/avatar/ec7b4ee7ed42f821faea7a3452dba991?s=96&d=mm&r=g","caption":"admin"},"sameAs":[]}]}</script>
+<!-- / Yoast SEO plugin. -->
+
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="网络生活 &raquo; Feed" href="http://www.wangluoshenghuo.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="网络生活 &raquo; 评论Feed" href="http://www.wangluoshenghuo.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="网络生活 &raquo; python下pandas_datareader包如何从不同的数据源获取各种金融数据评论Feed" href="http://www.wangluoshenghuo.com/2018/01/24/python%e4%b8%8bpandas_datareader%e5%8c%85%e5%a6%82%e4%bd%95%e4%bb%8e%e4%b8%8d%e5%90%8c%e7%9a%84%e6%95%b0%e6%8d%ae%e6%ba%90%e8%8e%b7%e5%8f%96%e5%90%84%e7%a7%8d%e9%87%91%e8%9e%8d%e6%95%b0%e6%8d%ae/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11.2.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11.2.0\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/www.wangluoshenghuo.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.1.3"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56760,9792,65039],[55358,56760,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='wp-block-library-css'  href='http://www.wangluoshenghuo.com/wp-content/plugins/gutenberg/build/block-library/style.css?ver=1568854279' type='text/css' media='all' />
+<link rel='stylesheet' id='contact-form-7-css'  href='http://www.wangluoshenghuo.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=5.1.4' type='text/css' media='all' />
+<link rel='stylesheet' id='creativefocus-style-css'  href='http://www.wangluoshenghuo.com/wp-content/themes/creative-focus/assets/css/style.min.css?ver=1.2.3' type='text/css' media='all' />
+<link rel='stylesheet' id='open-social-style-css'  href='http://www.wangluoshenghuo.com/wp-content/plugins/open-social/images/os.css?ver=5.1.3' type='text/css' media='all' />
+<script type='text/javascript' src='http://www.wangluoshenghuo.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='http://www.wangluoshenghuo.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<script type='text/javascript' src='http://www.wangluoshenghuo.com/wp-content/plugins/open-social/images/jquery.qrcode.min.js?ver=5.1.3'></script>
+<link rel='https://api.w.org/' href='http://www.wangluoshenghuo.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.wangluoshenghuo.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.wangluoshenghuo.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.1.3" />
+<link rel='shortlink' href='http://www.wangluoshenghuo.com/?p=291' />
+<link rel="alternate" type="application/json+oembed" href="http://www.wangluoshenghuo.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.wangluoshenghuo.com%2F2018%2F01%2F24%2Fpython%25e4%25b8%258bpandas_datareader%25e5%258c%2585%25e5%25a6%2582%25e4%25bd%2595%25e4%25bb%258e%25e4%25b8%258d%25e5%2590%258c%25e7%259a%2584%25e6%2595%25b0%25e6%258d%25ae%25e6%25ba%2590%25e8%258e%25b7%25e5%258f%2596%25e5%2590%2584%25e7%25a7%258d%25e9%2587%2591%25e8%259e%258d%25e6%2595%25b0%25e6%258d%25ae%2F" />
+<link rel="alternate" type="text/xml+oembed" href="http://www.wangluoshenghuo.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.wangluoshenghuo.com%2F2018%2F01%2F24%2Fpython%25e4%25b8%258bpandas_datareader%25e5%258c%2585%25e5%25a6%2582%25e4%25bd%2595%25e4%25bb%258e%25e4%25b8%258d%25e5%2590%258c%25e7%259a%2584%25e6%2595%25b0%25e6%258d%25ae%25e6%25ba%2590%25e8%258e%25b7%25e5%258f%2596%25e5%2590%2584%25e7%25a7%258d%25e9%2587%2591%25e8%259e%258d%25e6%2595%25b0%25e6%258d%25ae%2F&#038;format=xml" />
+		<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+		    </head>
+    <body class="post-template-default single single-post postid-291 single-format-standard debug right-sidebar">
+        <div id="page" class="hfeed site">
+            <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+            <header id="masthead" class="site-header" role="banner">
+                <div class="col-full">
+     					<div class="site-branding">
+						<p class="site-title">
+					<a href="http://www.wangluoshenghuo.com/" rel="home">网络生活</a>
+				</p>
+							<p class="site-description">衣食住行网络改变生活</p>
+					</div><!-- .site-branding -->
+	        <nav id="site-navigation" class="main-navigation" role="navigation">
+	        <button class="menu-toggle"></button>
+	        <div class="menu"><ul>
+<li class="page_item page-item-1293"><a href="http://www.wangluoshenghuo.com/%e5%bc%82%e6%ad%a5%e5%8a%a0%e8%bd%bd%e5%9c%b0%e5%9b%be/">异步加载地图</a></li>
+<li class="page_item page-item-2"><a href="http://www.wangluoshenghuo.com/sample-page/">示例页面</a></li>
+<li class="page_item page-item-1295"><a href="http://www.wangluoshenghuo.com/%e9%9d%a2%e7%a7%af%e8%ae%a1%e7%ae%97/">面积计算</a></li>
+</ul></div>
+        </nav><!-- #site-navigation -->
+                <div id="search-container" class="search-box-wrapper">
+	        <button class="menu-toggle"></button>
+	        <div class="search-box">
+                <form role="search" method="get" class="search-form" action="http://www.wangluoshenghuo.com/">
+				<label>
+					<span class="screen-reader-text">搜索：</span>
+					<input type="search" class="search-field" placeholder="搜索&hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="搜索" />
+			</form>            </div>
+        </div>
+                       
+                </div>
+            </header><!-- #masthead -->
+	            <div id="content" class="site-content">
+                <div class="col-full">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		                    
+			
+<article id="post-291" class="post-291 post type-post status-publish format-standard hentry category-jinrong col-1">
+
+    
+        <header class="entry-header">
+                                    <div class="entry-meta">
+            <span class="posted-on">Posted on <a href="http://www.wangluoshenghuo.com/2018/01/24/python%e4%b8%8bpandas_datareader%e5%8c%85%e5%a6%82%e4%bd%95%e4%bb%8e%e4%b8%8d%e5%90%8c%e7%9a%84%e6%95%b0%e6%8d%ae%e6%ba%90%e8%8e%b7%e5%8f%96%e5%90%84%e7%a7%8d%e9%87%91%e8%9e%8d%e6%95%b0%e6%8d%ae/" rel="bookmark"><time class="entry-date published" datetime="2018-01-24T15:41:45+08:00">2018年1月24日</time><time class="updated" datetime="2018-01-24T15:58:35+08:00">2018年1月24日</time></a></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="http://www.wangluoshenghuo.com/author/admin/">admin</a></span></span>        </div>
+        <h1 class="entry-title" itemprop="name headline">python下pandas_datareader包如何从不同的数据源获取各种金融数据</h1>        </header><!-- .entry-header -->
+                <div class="entry-content" itemprop="articleBody">
+            <p>网络生活站长eyeglasses翻译，原文来自：<a href="https://pandas-datareader.readthedocs.io/en/latest/remote_data.html">https://pandas-datareader.readthedocs.io/en/latest/remote_data.html</a>转载请注明出处。<br />
+<strong>Remote Data Access</strong><br />
+<strong> 远程数据访问</strong></p>
+<p>Functions from pandas_datareader.data and pandas_datareader.wb extract data from various Internet sources into a pandas DataFrame. Currently the following sources are supported:<br />
+来自pandas_datareader.data 和 pandas_datareader.wb函数能从不同的数据源获取数据，下面列出具体的数据源：</p>
+<p>Yahoo! Finance 雅虎金融<br />
+Google Finance 谷歌金融<br />
+Enigma 英格玛<br />
+Quandl<br />
+<a href="http://www.wangluoshenghuo.com/2018/01/24/fred-圣路易斯联邦储蓄银行/">St.Louis FED (FRED) 圣路易斯联邦储蓄银行 </a><br />
+<a href="http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html">Kenneth French’s data library</a><br />
+World Bank 世界银行<br />
+OECD 经合组织<br />
+Eurostat 欧盟统计局<br />
+<a href="http://www.wangluoshenghuo.com/?p=307&amp;preview=true">Thrift Savings Plan</a><br />
+Nasdaq Trader symbol definitions</p>
+<p>It should be noted, that various sources support different kinds of data, so not all sources implement the same methods and the data elements returned might also differ.<br />
+需要说明的是，各种数据源支持不同类型的数据，所以并不是所有的数据源都实现相同的方法，返回的数据元素也可能不同。</p>
+<p>Yahoo! Finance<br />
+雅虎金融</p>
+<p>Historical stock prices from Yahoo! Finance.<br />
+从雅虎金融获取股票数据</p>
+<p>In [1]: import pandas_datareader.data as web</p>
+<p>In [2]: import datetime</p>
+<p>In [3]: start = datetime.datetime(2010, 1, 1)</p>
+<p>In [4]: end = datetime.datetime(2013, 1, 27)</p>
+<p>In [5]: f = web.DataReader(&#8220;F&#8221;, &#8216;yahoo&#8217;, start, end)</p>
+<p>In [6]: f.ix[&#8216;2010-01-04&#8217;]<br />
+Out[6]:<br />
+Open 10.170000<br />
+High 10.280000<br />
+Low 10.050000<br />
+Close 10.280000<br />
+Adj Close 8.201456<br />
+Volume 60855800.000000<br />
+Name: 2010-01-04 00:00:00, dtype: float64</p>
+<p>Historical corporate actions (Dividends and Stock Splits) with ex-dates from Yahoo! Finance.<br />
+获取公司活动（分红和合股）使用历史日期获取</p>
+<p>In [7]: import pandas_datareader.data as web</p>
+<p>In [8]: import datetime</p>
+<p>In [9]: start = datetime.datetime(2010, 1, 1)</p>
+<p>In [10]: end = datetime.datetime(2015, 5, 9)</p>
+<p>In [11]: web.DataReader(&#8216;AAPL&#8217;, &#8216;yahoo-actions&#8217;, start, end)<br />
+Out[11]:<br />
+value action<br />
+Date<br />
+2015-05-07 0.52000 DIVIDEND<br />
+2015-02-05 0.47000 DIVIDEND<br />
+2014-11-06 0.47000 DIVIDEND<br />
+2014-08-07 0.47000 DIVIDEND<br />
+2014-06-09 0.00000 SPLIT<br />
+2014-05-08 0.47000 DIVIDEND<br />
+2014-02-06 0.43571 DIVIDEND<br />
+2013-11-06 0.43571 DIVIDEND<br />
+2013-08-08 0.43571 DIVIDEND<br />
+2013-05-09 0.43571 DIVIDEND<br />
+2013-02-07 0.37857 DIVIDEND<br />
+2012-11-07 0.37857 DIVIDEND<br />
+2012-08-09 0.37857 DIVIDEND</p>
+<p>Historical dividends from Yahoo! Finance.</p>
+<p>获取分红信息。</p>
+<p>In [12]: import pandas_datareader.data as web</p>
+<p>In [13]: import datetime</p>
+<p>In [14]: start = datetime.datetime(2010, 1, 1)</p>
+<p>In [15]: end = datetime.datetime(2013, 1, 27)</p>
+<p>In [16]: f = web.DataReader(&#8220;F&#8221;, &#8216;yahoo-dividends&#8217;, start, end)</p>
+<p>In [17]: f<br />
+Out[17]:<br />
+Dividends<br />
+Date<br />
+2012-01-27 0.05<br />
+2012-04-30 0.05<br />
+2012-08-01 0.05<br />
+2012-10-31 0.05</p>
+<p>Yahoo! Finance Quotes</p>
+<p>雅虎金融行情</p>
+<p>*Experimental*</p>
+<p>*试验*</p>
+<p>The YahooQuotesReader class allows to get quotes data from Yahoo! Finance.</p>
+<p>YahooQuotesReader这个类用来获得雅虎金融的行情数据。</p>
+<p>In [18]: import pandas_datareader.data as web</p>
+<p>In [19]: amzn = web.get_quote_yahoo(&#8216;AMZN&#8217;)</p>
+<p>In [20]: amzn<br />
+Out[20]:<br />
+PE change_pct last short_ratio time<br />
+AMZN 195.83 +0.09% 1039.87 1.14 4:00pm</p>
+<p>Yahoo! Finance Options</p>
+<p>雅虎金融Options<br />
+*Experimental*</p>
+<p>*试验*</p>
+<p>The Options class allows the download of options data from Yahoo! Finance.</p>
+<p>Options类可以下载来自雅虎金融上的options数据</p>
+<p>The get_all_data method downloads and caches option data for all expiry months and provides a formatted DataFrame with a hierarchical index, so its easy to get to the specific option you want.</p>
+<p>get_all_data方法下载和缓存所有到期月份的选项数据，并提供带有分层索引的格式化的DataFrame，因此它很容易得到你想要的特定选项。</p>
+<p>In [21]: from pandas_datareader.data import Options</p>
+<p>In [22]: aapl = Options(&#8216;aapl&#8217;, &#8216;yahoo&#8217;)</p>
+<p>In [23]: data = aapl.get_all_data()</p>
+<p>In [24]: data.iloc[0:5, 0:5]<br />
+Out[24]:<br />
+Last Bid Ask Chg Strike Expiry Type Symbol<br />
+2.5 2017-08-18 call AAPL170818C00002500 147.70 147.45 148.05 0.000000<br />
+put AAPL170818P00002500 0.02 0.00 0.02 0.000000<br />
+2018-01-19 call AAPL180119C00002500 150.18 152.50 153.20 -2.130005<br />
+5.0 2017-08-18 call AAPL170818C00005000 145.80 144.95 145.50 0.000000<br />
+2018-01-19 call AAPL180119C00005000 147.98 150.05 150.70 0.000000</p>
+<p>Strike Expiry Type Symbol PctChg<br />
+2.5 2017-08-18 call AAPL170818C00002500 0.000000<br />
+put AAPL170818P00002500 0.000000<br />
+2018-01-19 call AAPL180119C00002500 -1.390978<br />
+5.0 2017-08-18 call AAPL170818C00005000 0.000000<br />
+2018-01-19 call AAPL180119C00005000 0.000000</p>
+<p>#Show the $100 strike puts at all expiry dates:<br />
+In [25]: data.loc[(100, slice(None), &#8216;put&#8217;),:].iloc[0:5, 0:5]<br />
+Out[25]:<br />
+Last Bid Ask Chg PctChg Strike Expiry Type Symbol<br />
+100 2017-07-28 put AAPL170728P00100000 0.01 0.00 0.02 0 0<br />
+2017-08-18 put AAPL170818P00100000 0.01 0.00 0.01 0 0<br />
+2017-08-25 put AAPL170825P00100000 0.02 0.00 0.02 0 0<br />
+2017-09-01 put AAPL170901P00100000 0.04 0.00 0.03 0 0<br />
+2017-09-15 put AAPL170915P00100000 0.02 0.01 0.02 0 0</p>
+<p>#Show the volume traded of $100 strike puts at all expiry dates:<br />
+In [26]: data.loc[(100, slice(None), &#8216;put&#8217;),&#8217;Vol&#8217;].head()<br />
+Out[26]:<br />
+Strike Expiry Type Symbol<br />
+100 2017-07-28 put AAPL170728P00100000 1<br />
+2017-08-18 put AAPL170818P00100000 620<br />
+2017-08-25 put AAPL170825P00100000 2<br />
+2017-09-01 put AAPL170901P00100000 1<br />
+2017-09-15 put AAPL170915P00100000 3<br />
+Name: Vol, dtype: float64</p>
+<p>If you don’t want to download all the data, more specific requests can be made.</p>
+<p>如果你不想获取全部的数据，可以指定日期获取。</p>
+<p>In [27]: import datetime</p>
+<p>In [28]: expiry = datetime.date(2016, 1, 1)</p>
+<p>In [29]: data = aapl.get_call_data(expiry=expiry)</p>
+<p>In [30]: data.iloc[0:5:, 0:5]<br />
+Out[30]:<br />
+Last Bid Ask Chg Strike Expiry Type Symbol<br />
+95 2017-07-28 call AAPL170728C00095000 58.55 57.50 58.15 0.000000<br />
+100 2017-07-28 call AAPL170728C00100000 53.55 52.50 53.15 0.000000<br />
+105 2017-07-28 call AAPL170728C00105000 48.55 47.50 48.15 0.000000<br />
+120 2017-07-28 call AAPL170728C00120000 30.18 30.00 30.45 -0.670000<br />
+130 2017-07-28 call AAPL170728C00130000 23.15 22.65 22.95 0.799999</p>
+<p>Strike Expiry Type Symbol PctChg<br />
+95 2017-07-28 call AAPL170728C00095000 0.000000<br />
+100 2017-07-28 call AAPL170728C00100000 0.000000<br />
+105 2017-07-28 call AAPL170728C00105000 0.000000<br />
+120 2017-07-28 call AAPL170728C00120000 -2.171799<br />
+130 2017-07-28 call AAPL170728C00130000 3.579415</p>
+<p>Note that if you call get_all_data first, this second call will happen much faster, as the data is cached.</p>
+<p>注意：如果您先调用get_all_data，那么随着数据被缓存，第二次调用将会发生得更快。</p>
+<p>If a given expiry date is not available, data for the next available expiry will be returned (January 15, 2015 in the above example).</p>
+<p>如果给定的失效日期不可用，则将返回下一个可用失效日期的数据（上例中为2015年1月15日）。</p>
+<p>Available expiry dates can be accessed from the expiry_dates property.</p>
+<p>可用的日期，可以用expiry_dates属性获得。</p>
+<p>In [31]: aapl.expiry_dates<br />
+Out[31]:<br />
+[datetime.date(2017, 7, 28),<br />
+datetime.date(2017, 8, 4),<br />
+datetime.date(2017, 8, 11),<br />
+datetime.date(2017, 8, 18),<br />
+datetime.date(2017, 8, 25),<br />
+datetime.date(2017, 9, 1),<br />
+datetime.date(2017, 9, 15),<br />
+datetime.date(2017, 10, 20),<br />
+datetime.date(2017, 11, 17),<br />
+datetime.date(2017, 12, 15),<br />
+datetime.date(2018, 1, 19),<br />
+datetime.date(2018, 2, 16),<br />
+datetime.date(2018, 4, 20),<br />
+datetime.date(2018, 6, 15),<br />
+datetime.date(2018, 9, 21),<br />
+datetime.date(2019, 1, 18)]</p>
+<p>In [32]: data = aapl.get_call_data(expiry=aapl.expiry_dates[0])</p>
+<p>In [33]: data.iloc[0:5:, 0:5]<br />
+Out[33]:<br />
+Last Bid Ask Chg Strike Expiry Type Symbol<br />
+95 2017-07-28 call AAPL170728C00095000 58.55 57.50 58.15 0.000000<br />
+100 2017-07-28 call AAPL170728C00100000 53.55 52.50 53.15 0.000000<br />
+105 2017-07-28 call AAPL170728C00105000 48.55 47.50 48.15 0.000000<br />
+120 2017-07-28 call AAPL170728C00120000 30.18 30.00 30.45 -0.670000<br />
+130 2017-07-28 call AAPL170728C00130000 23.15 22.65 22.95 0.799999</p>
+<p>Strike Expiry Type Symbol PctChg<br />
+95 2017-07-28 call AAPL170728C00095000 0.000000<br />
+100 2017-07-28 call AAPL170728C00100000 0.000000<br />
+105 2017-07-28 call AAPL170728C00105000 0.000000<br />
+120 2017-07-28 call AAPL170728C00120000 -2.171799<br />
+130 2017-07-28 call AAPL170728C00130000 3.579415</p>
+<p>A list-like object containing dates can also be passed to the expiry parameter, returning options data for all expiry dates in the list.</p>
+<p>包含日期的类似列表的对象也可以传递给expiry参数，返回列表中所有过期日期的选项数据。</p>
+<p>In [34]: data = aapl.get_near_stock_price(expiry=aapl.expiry_dates[0:3])</p>
+<p>In [35]: data.iloc[0:5:, 0:5]<br />
+Out[35]:</p>
+<p>Strike Expiry Type Symbol Last Bid Ask Chg PctChg<br />
+152.5 2017-08-04 call AAPL170804C00152500 3.19 3.10 3.20 0.18 5.980069<br />
+2017-08-11 call AAPL170811C00152500 3.50 3.45 3.55 0.15 4.477615<br />
+155.0 2017-07-28 call AAPL170728C00155000 0.31 0.28 0.30 -0.01 -3.124997<br />
+2017-08-04 call AAPL170804C00155000 2.04 1.95 2.00 0.13 6.806283<br />
+2017-08-11 call AAPL170811C00155000 2.37 2.34 2.39 0.03 1.282050</p>
+<p>The month and year parameters can be used to get all options data for a given month.</p>
+<p>用月和年参数可以获得给点的全部的options数据</p>
+<p><strong>Google Finance</strong></p>
+<p><strong>谷歌金融</strong></p>
+<p>In [36]: import pandas_datareader.data as web</p>
+<p>In [37]: import datetime</p>
+<p>In [38]: start = datetime.datetime(2010, 1, 1)</p>
+<p>In [39]: end = datetime.datetime(2013, 1, 27)</p>
+<p>In [40]: f = web.DataReader(&#8220;F&#8221;, &#8216;google&#8217;, start, end)</p>
+<p>In [41]: f.ix[&#8216;2010-01-04&#8217;]<br />
+Out[41]:<br />
+Open 10.17<br />
+High 10.28<br />
+Low 10.05<br />
+Close 10.28<br />
+Volume 60855796.00<br />
+Name: 2010-01-04 00:00:00, dtype: float64</p>
+<p>Google Finance Quotes</p>
+<p>谷歌金融行情<br />
+*Experimental*</p>
+<p>*实验*</p>
+<p>The GoogleQuotesReader class allows to get quotes data from Google Finance.</p>
+<p>GoogleQuotesReader类可以从谷歌金融上获得行情数据。</p>
+<p>In [42]: import pandas_datareader.data as web</p>
+<p>In [43]: q = web.get_quote_google([&#8216;AMZN&#8217;, &#8216;GOOG&#8217;])</p>
+<p>In [44]: q<br />
+Out[44]:<br />
+change_pct last time<br />
+AMZN 0.09 1039.87 2017-07-25 16:00:00<br />
+GOOG -3.02 950.70 2017-07-25 16:00:00</p>
+<p>Google Finance Options</p>
+<p>谷歌金融选项<br />
+*Experimental*</p>
+<p>*实验*</p>
+<p>The Options class allows the download of options data from Google Finance.</p>
+<p>Options类可以从谷歌金融上下载options数据。</p>
+<p>The get_options_data method downloads options data for specified expiry date and provides a formatted DataFrame with a hierarchical index, so its easy to get to the specific option you want.</p>
+<p>get_options_data方法下载和缓存所有到期月份的选项数据，并提供带有分层索引的格式化的DataFrame，因此它很容易得到你想要的特定选项。</p>
+<p>Available expiry dates can be accessed from the expiry_dates property.</p>
+<p>expiry_dates属性能得到可用的日期</p>
+<p>In [45]: from pandas_datareader.data import Options</p>
+<p>In [46]: goog = Options(&#8216;goog&#8217;, &#8216;google&#8217;)</p>
+<p>In [47]: data = goog.get_options_data(expiry=goog.expiry_dates[0])</p>
+<p>In [48]: data.iloc[0:5, 0:5]<br />
+Out[48]:<br />
+Last Bid Ask Chg Strike Expiry Type Symbol<br />
+340 2018-01-19 call GOOG180119C00340000 578.00 611.20 615.50 0.00<br />
+put GOOG180119P00340000 0.05 NaN 0.05 0.00<br />
+350 2018-01-19 call GOOG180119C00350000 604.50 601.30 604.20 -30.80<br />
+put GOOG180119P00350000 0.05 0.05 0.10 -0.05<br />
+360 2018-01-19 call GOOG180119C00360000 612.40 591.30 595.50 0.00</p>
+<p>Strike Expiry Type Symbol PctChg<br />
+340 2018-01-19 call GOOG180119C00340000 0.00<br />
+put GOOG180119P00340000 0.00<br />
+350 2018-01-19 call GOOG180119C00350000 -4.85<br />
+put GOOG180119P00350000 -50.00<br />
+360 2018-01-19 call GOOG180119C00360000 0.00</p>
+<p><strong>Enigma </strong><br />
+<strong>英格玛（一家数据公司）</strong></p>
+<p>Access datasets from Enigma, the world’s largest repository of structured public data.</p>
+<p>从全球最大的结构化公共数据库-Enigma获取数据。</p>
+<p>In [49]: import os</p>
+<p>In [50]: import pandas_datareader as pdr</p>
+<p>In [51]: df = pdr.get_data_enigma(&#8216;enigma.trade.ams.toxic.2015&#8217;, os.getenv(&#8216;ENIGMA_API_KEY&#8217;))</p>
+<p>ValueErrorTraceback (most recent call last)<br />
+in ()<br />
+&#8212;-&gt; 1 df = pdr.get_data_enigma(&#8216;enigma.trade.ams.toxic.2015&#8217;, os.getenv(&#8216;ENIGMA_API_KEY&#8217;))</p>
+<p>/home/docs/checkouts/readthedocs.org/user_builds/pandas-datareader/envs/latest/local/lib/python2.7/site-packages/pandas_datareader-0.5.0-py2.7.egg/pandas_datareader/data.pyc in get_data_enigma(*args, **kwargs)<br />
+42<br />
+43 def get_data_enigma(*args, **kwargs):<br />
+&#8212;&gt; 44 return EnigmaReader(*args, **kwargs).read()<br />
+45<br />
+46</p>
+<p>/home/docs/checkouts/readthedocs.org/user_builds/pandas-datareader/envs/latest/local/lib/python2.7/site-packages/pandas_datareader-0.5.0-py2.7.egg/pandas_datareader/enigma.pyc in __init__(self, datapath, api_key, retry_count, pause, session)<br />
+47 self._api_key = os.getenv(&#8216;ENIGMA_API_KEY&#8217;)<br />
+48 if self._api_key is None:<br />
+&#8212;&gt; 49 raise ValueError(&#8220;Please provide an Enigma API key or set &#8221;<br />
+50 &#8220;the ENIGMA_API_KEY environment variable\n&#8221;<br />
+51 &#8220;If you do not have an API key, you can get &#8221;</p>
+<p>ValueError: Please provide an Enigma API key or set the ENIGMA_API_KEY environment variable<br />
+If you do not have an API key, you can get one here: https://app.enigma.io/signup</p>
+<p>In [52]: df.columns</p>
+<p>NameErrorTraceback (most recent call last)<br />
+in ()<br />
+&#8212;-&gt; 1 df.columns</p>
+<p>NameError: name &#8216;df&#8217; is not defined</p>
+<p>&nbsp;</p>
+<p>Quandl</p>
+<p><em>Quandl</em> 是一个针对金融投资行业的大<em>数据</em>平台</p>
+<p>Daily financial data (prices of stocks, ETFs etc.) from Quandl. The symbol names consist of two parts: DB name and symbol name. DB names can be all the free ones listed on the Quandl website &lt;https://blog.quandl.com/free-data-on-quandl&gt;__. Symbol names vary with DB name; for WIKI (US stocks), they are the common ticker symbols, in some other cases (such as FSE) they can be a bit strange. Some sources are also mapped to suitable ISO country codes in the dot suffix style shown above, currently available for `BE, CN, DE, FR, IN, JP, NL, PT, UK, US.</p>
+<p>来自Quandl每每天的金融数据（股票价格，ETF等）的符号名称由两部分组成：数据库名称和符号名称。数据库名称来自Quandl官网链接&lt;<a href="https://blog.quandl.com/free-data-on-quandl">https://blog.quandl.com/free-data-on-quandl</a>&gt;中列出的所有免费数据库名称。符号名称因数据库名称而异;对于WIKI（美国股票）来说，它们是常见的股票代码，在其他一些情况下（如FSE），它们可能有点奇怪。有些来源还被映射到上面所示的点后缀样式的合适ISO国家代码，目前可用于BE，CN，DE，FR，IN，JP，NL，PT，UK，US。</p>
+<p>As of June 2017, each DB has a different data schema, the coverage in terms of time range is sometimes surprisingly small, and the data quality is not always good.</p>
+<p>截至2017年6月，每个数据库都有不同的数据模式，时间范围覆盖范围有时令人惊讶的小，数据质量并不好。</p>
+<p>In [53]: import pandas_datareader.data as web</p>
+<p>In [54]: symbol = &#8216;WIKI/AAPL&#8217; # or &#8216;AAPL.US&#8217;</p>
+<p>In [55]: df = web.DataReader(symbol, &#8216;quandl&#8217;, &#8220;2015-01-01&#8221;, &#8220;2015-01-05&#8221;)</p>
+<p>RemoteDataErrorTraceback (most recent call last)<br />
+in ()<br />
+&#8212;-&gt; 1 df = web.DataReader(symbol, &#8216;quandl&#8217;, &#8220;2015-01-01&#8221;, &#8220;2015-01-05&#8221;)</p>
+<p>/home/docs/checkouts/readthedocs.org/user_builds/pandas-datareader/envs/latest/local/lib/python2.7/site-packages/pandas_datareader-0.5.0-py2.7.egg/pandas_datareader/data.pyc in DataReader(name, data_source, start, end, retry_count, pause, session, access_key)<br />
+170 return QuandlReader(symbols=name, start=start, end=end,<br />
+171 retry_count=retry_count, pause=pause,<br />
+&#8211;&gt; 172 session=session).read()<br />
+173 else:<br />
+174 msg = &#8220;data_source=%r is not implemented&#8221; % data_source</p>
+<p>/home/docs/checkouts/readthedocs.org/user_builds/pandas-datareader/envs/latest/local/lib/python2.7/site-packages/pandas_datareader-0.5.0-py2.7.egg/pandas_datareader/quandl.pyc in read(self)<br />
+103<br />
+104 def read(self):<br />
+&#8211;&gt; 105 df = super(QuandlReader, self).read()<br />
+106 df.rename(columns=lambda n: n.replace(&#8216; &#8216;, &#8221;)<br />
+107 .replace(&#8216;.&#8217;, &#8221;)</p>
+<p>/home/docs/checkouts/readthedocs.org/user_builds/pandas-datareader/envs/latest/local/lib/python2.7/site-packages/pandas_datareader-0.5.0-py2.7.egg/pandas_datareader/base.pyc in read(self)<br />
+179 if isinstance(self.symbols, (compat.string_types, int)):<br />
+180 df = self._read_one_data(self.url,<br />
+&#8211;&gt; 181 params=self._get_params(self.symbols))<br />
+182 # Or multiple symbols, (e.g., [&#8216;GOOG&#8217;, &#8216;AAPL&#8217;, &#8216;MSFT&#8217;])<br />
+183 elif isinstance(self.symbols, DataFrame):</p>
+<p>/home/docs/checkouts/readthedocs.org/user_builds/pandas-datareader/envs/latest/local/lib/python2.7/site-packages/pandas_datareader-0.5.0-py2.7.egg/pandas_datareader/base.pyc in _read_one_data(self, url, params)<br />
+77 &#8220;&#8221;&#8221; read one data from specified URL &#8220;&#8221;&#8221;<br />
+78 if self._format == &#8216;string&#8217;:<br />
+&#8212;&gt; 79 out = self._read_url_as_StringIO(url, params=params)<br />
+80 elif self._format == &#8216;json&#8217;:<br />
+81 out = self._get_response(url, params=params).json()</p>
+<p>/home/docs/checkouts/readthedocs.org/user_builds/pandas-datareader/envs/latest/local/lib/python2.7/site-packages/pandas_datareader-0.5.0-py2.7.egg/pandas_datareader/base.pyc in _read_url_as_StringIO(self, url, params)<br />
+88 Open url (and retry)<br />
+89 &#8220;&#8221;&#8221;<br />
+&#8212;&gt; 90 response = self._get_response(url, params=params)<br />
+91 text = self._sanitize_response(response)<br />
+92 out = StringIO()</p>
+<p>/home/docs/checkouts/readthedocs.org/user_builds/pandas-datareader/envs/latest/local/lib/python2.7/site-packages/pandas_datareader-0.5.0-py2.7.egg/pandas_datareader/base.pyc in _get_response(self, url, params, headers)<br />
+137 if params is not None and len(params) &gt; 0:<br />
+138 url = url + &#8220;?&#8221; + urlencode(params)<br />
+&#8211;&gt; 139 raise RemoteDataError(&#8216;Unable to read URL: {0}&#8217;.format(url))<br />
+140<br />
+141 def _get_crumb(self, *args):</p>
+<p>RemoteDataError: Unable to read URL: https://www.quandl.com/api/v3/datasets/WIKI/AAPL.csv?start_date=2015-01-01&amp;end_date=2015-01-05&amp;order=asc</p>
+<p>In [56]: df.loc[&#8216;2015-01-02&#8217;]</p>
+<p>NameErrorTraceback (most recent call last)<br />
+in ()<br />
+&#8212;-&gt; 1 df.loc[&#8216;2015-01-02&#8217;]</p>
+<p>NameError: name &#8216;df&#8217; is not defined</p>
+<p><strong>FRED</strong><br />
+<strong>圣路易斯联邦储蓄银行</strong></p>
+<p>In [57]: import pandas_datareader.data as web</p>
+<p>In [58]: import datetime</p>
+<p>In [59]: start = datetime.datetime(2010, 1, 1)</p>
+<p>In [60]: end = datetime.datetime(2013, 1, 27)</p>
+<p>In [61]: gdp = web.DataReader(&#8220;GDP&#8221;, &#8220;fred&#8221;, start, end)</p>
+<p>In [62]: gdp.ix[&#8216;2013-01-01&#8217;]<br />
+Out[62]:<br />
+GDP 16475.4<br />
+Name: 2013-01-01 00:00:00, dtype: float64</p>
+<p># Multiple series:<br />
+In [63]: inflation = web.DataReader([&#8220;CPIAUCSL&#8221;, &#8220;CPILFESL&#8221;], &#8220;fred&#8221;, start, end)</p>
+<p>In [64]: inflation.head()<br />
+Out[64]:<br />
+CPIAUCSL CPILFESL<br />
+DATE<br />
+2010-01-01 217.488 220.633<br />
+2010-02-01 217.281 220.731<br />
+2010-03-01 217.353 220.783<br />
+2010-04-01 217.403 220.822<br />
+2010-05-01 217.290 220.962</p>
+<p><strong>Fama/French</strong></p>
+<p>一家数据提供商，官网：<a href="http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/index.html">http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/index.html</a><br />
+Access datasets from the Fama/French Data Library. The get_available_datasets function returns a list of all available datasets.</p>
+<p>从Fama/French数据仓库中访问数据，通过 get_available_datasets函数得到一个可用的数据集列表。</p>
+<p>In [65]: from pandas_datareader.famafrench import get_available_datasets</p>
+<p>In [66]: import pandas_datareader.data as web</p>
+<p>In [67]: len(get_available_datasets())<br />
+Out[67]: 262</p>
+<p>In [68]: ds = web.DataReader(&#8220;5_Industry_Portfolios&#8221;, &#8220;famafrench&#8221;)</p>
+<p>In [69]: print(ds[&#8216;DESCR&#8217;])<br />
+5 Industry Portfolios<br />
+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;</p>
+<p>This file was created by CMPT_IND_RETS using the 201705 CRSP database. It contains value- and equal-weighted returns for 5 industry portfolios. The portfolios are constructed at the end of June. The annual returns are from January to December. Missing data are indicated by -99.99 or -999. Copyright 2017 Kenneth R. French</p>
+<p>0 : Average Value Weighted Returns &#8212; Monthly (89 rows x 5 cols)<br />
+1 : Average Equal Weighted Returns &#8212; Monthly (89 rows x 5 cols)<br />
+2 : Average Value Weighted Returns &#8212; Annual (7 rows x 5 cols)<br />
+3 : Average Equal Weighted Returns &#8212; Annual (7 rows x 5 cols)<br />
+4 : Number of Firms in Portfolios (89 rows x 5 cols)<br />
+5 : Average Firm Size (89 rows x 5 cols)<br />
+6 : Sum of BE / Sum of ME (7 rows x 5 cols)<br />
+7 : Value-Weighted Average of BE/ME (7 rows x 5 cols)</p>
+<p>In [70]: ds[4].ix[&#8216;1926-07&#8217;]</p>
+<p>KeyErrorTraceback (most recent call last)<br />
+in ()<br />
+&#8212;-&gt; 1 ds[4].ix[&#8216;1926-07&#8217;]</p>
+<p>/usr/lib/python2.7/dist-packages/pandas/core/indexing.pyc in __getitem__(self, key)<br />
+68 return self._getitem_tuple(key)<br />
+69 else:<br />
+&#8212;&gt; 70 return self._getitem_axis(key, axis=0)<br />
+71<br />
+72 def _get_label(self, label, axis=0):</p>
+<p>/usr/lib/python2.7/dist-packages/pandas/core/indexing.pyc in _getitem_axis(self, key, axis)<br />
+965 return self._get_loc(key, axis=axis)<br />
+966<br />
+&#8211;&gt; 967 return self._get_label(key, axis=axis)<br />
+968<br />
+969 def _getitem_iterable(self, key, axis=0):</p>
+<p>/usr/lib/python2.7/dist-packages/pandas/core/indexing.pyc in _get_label(self, label, axis)<br />
+84 raise IndexingError(&#8216;no slices here, handle elsewhere&#8217;)<br />
+85<br />
+&#8212;&gt; 86 return self.obj._xs(label, axis=axis)<br />
+87<br />
+88 def _get_loc(self, key, axis=0):</p>
+<p>/usr/lib/python2.7/dist-packages/pandas/core/generic.pyc in xs(self, key, axis, level, copy, drop_level)<br />
+1484 drop_level=drop_level)<br />
+1485 else:<br />
+-&gt; 1486 loc = self.index.get_loc(key)<br />
+1487<br />
+1488 if isinstance(loc, np.ndarray):</p>
+<p>/usr/lib/python2.7/dist-packages/pandas/tseries/period.pyc in get_loc(self, key, method, tolerance)<br />
+667 return Index.get_loc(self, key.ordinal, method, tolerance)<br />
+668 except KeyError:<br />
+&#8211;&gt; 669 raise KeyError(key)<br />
+670<br />
+671 def _maybe_cast_slice_bound(self, label, side, kind):</p>
+<p>KeyError: Period(&#8216;1926-07&#8217;, &#8216;M&#8217;)</p>
+<p><strong>World Bank</strong></p>
+<p><strong>世界银行</strong></p>
+<p>pandas users can easily access thousands of panel data series from the World Bank’s World Development Indicators by using the wb I/O functions.</p>
+<p>Pandas用户可以通过使用wb I / O函数访问世行相关数据。</p>
+<p><strong>Indicators</strong></p>
+<p><strong>世行指标</strong></p>
+<p>Either from exploring the World Bank site, or using the search function included, every world bank indicator is accessible.</p>
+<p>无论是探索世界银行的网站，或者使用搜索功能，每一个世行指标都可以访问。</p>
+<p>For example, if you wanted to compare the Gross Domestic Products per capita in constant dollars in North America, you would use the search function:</p>
+<p>比如，如果您想比较以美元计价的北美地区人均国内生产总值，可以使用搜索功能：</p>
+<p>In [1]: from pandas_datareader import wb</p>
+<p>In [2]: wb.search(&#8216;gdp.*capita.*const&#8217;).iloc[:,:2]<br />
+Out[2]:<br />
+id name<br />
+3242 GDPPCKD GDP per Capita, constant US$, millions<br />
+5143 NY.GDP.PCAP.KD GDP per capita (constant 2005 US$)<br />
+5145 NY.GDP.PCAP.KN GDP per capita (constant LCU)<br />
+5147 NY.GDP.PCAP.PP.KD GDP per capita, PPP (constant 2005 internation&#8230;</p>
+<p>Then you would use the download function to acquire the data from the World Bank’s servers:</p>
+<p>接下来就可以到世界银行的服务器上获取数据：</p>
+<p>In [3]: dat = wb.download(indicator=&#8217;NY.GDP.PCAP.KD&#8217;, country=[&#8216;US&#8217;, &#8216;CA&#8217;, &#8216;MX&#8217;], start=2005, end=2008)</p>
+<p>In [4]: print(dat)<br />
+NY.GDP.PCAP.KD<br />
+country year<br />
+Canada 2008 36005.5004978584<br />
+2007 36182.9138439757<br />
+2006 35785.9698172849<br />
+2005 35087.8925933298<br />
+Mexico 2008 8113.10219480083<br />
+2007 8119.21298908649<br />
+2006 7961.96818458178<br />
+2005 7666.69796097264<br />
+United States 2008 43069.5819857208<br />
+2007 43635.5852068142<br />
+2006 43228.111147107<br />
+2005 42516.3934699993</p>
+<p>The resulting dataset is a properly formatted DataFrame with a hierarchical index, so it is easy to apply .groupby transformations to it:</p>
+<p>由此产生的数据集是一个有层次索引的格式化的DataFrame数据，很容易通过应用groupby进行转换：</p>
+<p>In [6]: dat[&#8216;NY.GDP.PCAP.KD&#8217;].groupby(level=0).mean()<br />
+Out[6]:<br />
+country<br />
+Canada 35765.569188<br />
+Mexico 7965.245332<br />
+United States 43112.417952<br />
+dtype: float64</p>
+<p>Now imagine you want to compare GDP to the share of people with cellphone contracts around the world.</p>
+<p>假设你想得到国内生产总值与世界各地的手机使用人数的比例。</p>
+<p>In [7]: wb.search(&#8216;cell.*%&#8217;).iloc[:,:2]<br />
+Out[7]:<br />
+id name<br />
+3990 IT.CEL.SETS.FE.ZS Mobile cellular telephone users, female (% of &#8230;<br />
+3991 IT.CEL.SETS.MA.ZS Mobile cellular telephone users, male (% of po&#8230;<br />
+4027 IT.MOB.COV.ZS Population coverage of mobile cellular telepho&#8230;</p>
+<p>Notice that this second search was much faster than the first one because pandas now has a cached list of available data series.</p>
+<p>请注意，第二个搜索比第一个搜索要快得多，因为pandas有一个可用数据序列的缓存列表。</p>
+<p>In [13]: ind = [&#8216;NY.GDP.PCAP.KD&#8217;, &#8216;IT.MOB.COV.ZS&#8217;]<br />
+In [14]: dat = wb.download(indicator=ind, country=&#8217;all&#8217;, start=2011, end=2011).dropna()<br />
+In [15]: dat.columns = [&#8216;gdp&#8217;, &#8216;cellphone&#8217;]<br />
+In [16]: print(dat.tail())<br />
+gdp cellphone<br />
+country year<br />
+Swaziland 2011 2413.952853 94.9<br />
+Tunisia 2011 3687.340170 100.0<br />
+Uganda 2011 405.332501 100.0<br />
+Zambia 2011 767.911290 62.0<br />
+Zimbabwe 2011 419.236086 72.4</p>
+<p>Finally, we use the statsmodels package to assess the relationship between our two variables using ordinary least squares regression. Unsurprisingly, populations in rich countries tend to use cellphones at a higher rate:</p>
+<p>最后，我们使用statsmodels包来评估两个变量之间的关系，使用普遍最小二乘回归法。可以看到，富国倾向于以更高的速度使用手机：</p>
+<p>In [17]: import numpy as np<br />
+In [18]: import statsmodels.formula.api as smf<br />
+In [19]: mod = smf.ols(&#8220;cellphone ~ np.log(gdp)&#8221;, dat).fit()<br />
+In [20]: print(mod.summary())<br />
+OLS Regression Results<br />
+==============================================================================<br />
+Dep. Variable: cellphone R-squared: 0.297<br />
+Model: OLS Adj. R-squared: 0.274<br />
+Method: Least Squares F-statistic: 13.08<br />
+Date: Thu, 25 Jul 2013 Prob (F-statistic): 0.00105<br />
+Time: 15:24:42 Log-Likelihood: -139.16<br />
+No. Observations: 33 AIC: 282.3<br />
+Df Residuals: 31 BIC: 285.3<br />
+Df Model: 1<br />
+===============================================================================<br />
+coef std err t P&gt;|t| [95.0% Conf. Int.]<br />
+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-<br />
+Intercept 16.5110 19.071 0.866 0.393 -22.384 55.406<br />
+np.log(gdp) 9.9333 2.747 3.616 0.001 4.331 15.535<br />
+==============================================================================<br />
+Omnibus: 36.054 Durbin-Watson: 2.071<br />
+Prob(Omnibus): 0.000 Jarque-Bera (JB): 119.133<br />
+Skew: -2.314 Prob(JB): 1.35e-26<br />
+Kurtosis: 11.077 Cond. No. 45.8<br />
+==============================================================================</p>
+<p>Country Codes</p>
+<p>国家编码</p>
+<p>The country argument accepts a string or list of mixed two or three character ISO country codes, as well as dynamic World Bank exceptions to the ISO standards.<br />
+国家编码参数接受一个混合的两个或三个字符ISO国家编码的字符串或列表，以及动态的世界银行ISO标准。</p>
+<p>For a list of the the hard-coded country codes (used solely for error handling logic) see pandas_datareader.wb.country_codes.<br />
+有关硬编码国家代码（仅用于错误处理逻辑）的列表，使用<code class="docutils literal"><span class="pre">pandas_datareader.wb.country_codes</span></code>.</p>
+<p>Problematic Country Codes &amp; Indicators<br />
+有问题的国家代码和指标</p>
+<p>Note<br />
+注意</p>
+<p>The World Bank’s country list and indicators are dynamic. As of 0.15.1, wb.download() is more flexible. To achieve this, the warning and exception logic changed.</p>
+<p>世界银行的国家名单和指标是动态的。从0.15.1开始，wb.download（）更加灵活。为了达到这个目的，警告和异常逻辑改变了</p>
+<p>The world bank converts some country codes, in their response, which makes error checking by pandas difficult. Retired indicators still persist in the search.</p>
+<p>世界银行改变了一些国家代码，这使得pandas的错误​​检查变得困难。退休的指标还是在搜索里完成。</p>
+<p>Given the new flexibility of 0.15.1, improved error handling by the user may be necessary for fringe cases.</p>
+<p>考虑到0.15.1的灵活性，用户可能需要改进错误处理来避免一些问题。</p>
+<p>To help identify issues:</p>
+<p>已知问题的帮助：</p>
+<p>There are at least 4 kinds of country codes:</p>
+<p>这里有4种类型国家代码：</p>
+<p>Standard (2/3 digit ISO) &#8211; returns data, will warn and error properly.<br />
+Non-standard (WB Exceptions) &#8211; returns data, but will falsely warn.<br />
+Blank &#8211; silently missing from the response.</p>
+<p>标准（2/3数字ISO） &#8211; 返回数据，将正确警告和错误。 非标准（WB例外） &#8211; 返回数据，但会错误地发出警告。 空白 &#8211; 从响应中默默地消失。</p>
+<p>Bad &#8211; causes the entire response from WB to fail, always exception inducing.<br />
+坏的 &#8211; 导致来自WB的整个响应失败，总是引发异常。<br />
+There are at least 3 kinds of indicators:<br />
+至少有3种指标：</p>
+<p>Current &#8211; Returns data.</p>
+<p>当前-返回数据<br />
+Retired &#8211; Appears in search results, yet won’t return data.</p>
+<p>退休 &#8211; 出现在搜索结果中，但不会返回数据。<br />
+Bad &#8211; Will not return data.</p>
+<p>坏的-将不返回数据<br />
+Use the errors argument to control warnings and exceptions. Setting errors to ignore or warn, won’t stop failed responses. (ie, 100% bad indicators, or a single “bad” (#4 above) country code).</p>
+<p>使用错误参数去控制警告和意外。出现错误设置忽略或警告，不能阻止失败响应。 （即100％的坏指标，或一个单一的“坏”（上述＃4）国家代码）。</p>
+<p>See docstrings for more info.</p>
+<p>有关更多信息，请查看参考文档。</p>
+<p><strong>OECD<br />
+经合组织</strong><br />
+OECD Statistics are avaliable via DataReader. You have to specify OECD’s data set code.</p>
+<p>经合组织统计数据可通过DataReader获得。须指定OECD的数据集代码。</p>
+<p>To confirm data set code, access to each data -&gt; Export -&gt; SDMX Query. Following example is to download “Trade Union Density” data which set code is “UN_DEN”.</p>
+<div id="translation">
+<div class="gtx-body">去证实数据集代码，访问每个数据 ，需要- &gt;导出 &#8211; &gt; SDMX查询。下面的例子是为“UN_DEN”的“工会密度”数据下载代码。</div>
+</div>
+<p>In [71]: import pandas_datareader.data as web</p>
+<p>In [72]: import datetime</p>
+<p>In [73]: df = web.DataReader(&#8216;UN_DEN&#8217;, &#8216;oecd&#8217;, end=datetime.datetime(2012, 1, 1))</p>
+<p>In [74]: df.columns<br />
+Out[74]:<br />
+Index([u&#8217;Australia&#8217;, u&#8217;Austria&#8217;, u&#8217;Belgium&#8217;, u&#8217;Canada&#8217;, u&#8217;Czech Republic&#8217;,<br />
+u&#8217;Denmark&#8217;, u&#8217;Finland&#8217;, u&#8217;France&#8217;, u&#8217;Germany&#8217;, u&#8217;Greece&#8217;, u&#8217;Hungary&#8217;,<br />
+u&#8217;Iceland&#8217;, u&#8217;Ireland&#8217;, u&#8217;Italy&#8217;, u&#8217;Japan&#8217;, u&#8217;Korea&#8217;, u&#8217;Luxembourg&#8217;,<br />
+u&#8217;Mexico&#8217;, u&#8217;Netherlands&#8217;, u&#8217;New Zealand&#8217;, u&#8217;Norway&#8217;, u&#8217;Poland&#8217;,<br />
+u&#8217;Portugal&#8217;, u&#8217;Slovak Republic&#8217;, u&#8217;Spain&#8217;, u&#8217;Sweden&#8217;, u&#8217;Switzerland&#8217;,<br />
+u&#8217;Turkey&#8217;, u&#8217;United Kingdom&#8217;, u&#8217;United States&#8217;, u&#8217;OECD countries&#8217;,<br />
+u&#8217;Chile&#8217;, u&#8217;Slovenia&#8217;, u&#8217;Estonia&#8217;, u&#8217;Israel&#8217;],<br />
+dtype=&#8217;object&#8217;, name=u&#8217;Country&#8217;)</p>
+<p>In [75]: df[[&#8216;Japan&#8217;, &#8216;United States&#8217;]]<br />
+Out[75]:<br />
+Country Japan United States<br />
+Time<br />
+2010-01-01 18.403807 11.383460<br />
+2011-01-01 18.995042 11.329488<br />
+2012-01-01 17.972384 10.815352</p>
+<p>Eurostat</p>
+<p>欧盟统计局<br />
+Eurostat are avaliable via DataReader.</p>
+<p>通过DataReader获取有用的欧盟统计数据</p>
+<p>Get Rail accidents by type of accident (ERA data) data. The result will be a DataFrame which has DatetimeIndex as index and MultiIndex of attributes or countries as column. The target URL is:</p>
+<p>根据事故类型（ERA数据）获取铁路事故数据。结果将是以DatetimeIndex为索引，属性或国家MultiIndex为列的DataFrame数据。目标网址是：</p>
+<p><a href="http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=tran_sf_railac&amp;lang=en">http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=tran_sf_railac&amp;lang=en</a></p>
+<p>You can specify dataset ID “tran_sf_railac” to get corresponding data via DataReader.</p>
+<p>你能指定数据集ID“tran_sf_railac”通过DataReader获取相应的数据。</p>
+<p>In [76]: import pandas_datareader.data as web</p>
+<p>In [77]: df = web.DataReader(&#8220;tran_sf_railac&#8221;, &#8216;eurostat&#8217;)</p>
+<p>In [78]: df<br />
+Out[78]:<br />
+ACCIDENT Collisions of trains, including collisions with obstacles within the clearance gauge \<br />
+UNIT Number<br />
+GEO Austria<br />
+FREQ Annual<br />
+TIME_PERIOD<br />
+2010-01-01 3<br />
+2011-01-01 2<br />
+2012-01-01 1<br />
+2013-01-01 4<br />
+2014-01-01 1<br />
+2015-01-01 7</p>
+<p>ACCIDENT \<br />
+UNIT<br />
+GEO Belgium Bulgaria Switzerland Channel Tunnel Czech Republic<br />
+FREQ Annual Annual Annual Annual Annual<br />
+TIME_PERIOD<br />
+2010-01-01 5 2 5 0 3<br />
+2011-01-01 0 0 4 0 6<br />
+2012-01-01 3 3 4 0 6<br />
+2013-01-01 1 2 6 0 5<br />
+2014-01-01 3 4 0 0 13<br />
+2015-01-01 0 3 3 0 14</p>
+<p>ACCIDENT \<br />
+UNIT<br />
+GEO Germany (until 1990 former territory of the FRG) Denmark Estonia<br />
+FREQ Annual Annual Annual<br />
+TIME_PERIOD<br />
+2010-01-01 13 0 1<br />
+2011-01-01 18 1 0<br />
+2012-01-01 23 1 3<br />
+2013-01-01 29 0 0<br />
+2014-01-01 32 0 0<br />
+2015-01-01 40 3 0</p>
+<p>ACCIDENT &#8230; Total \<br />
+UNIT &#8230; Number<br />
+GEO Greece &#8230; Latvia Netherlands Norway Poland Portugal<br />
+FREQ Annual &#8230; Annual Annual Annual Annual Annual<br />
+TIME_PERIOD &#8230;<br />
+2010-01-01 4 &#8230; 41 24 20 449 42<br />
+2011-01-01 1 &#8230; 35 29 36 488 27<br />
+2012-01-01 2 &#8230; 25 30 19 379 36<br />
+2013-01-01 2 &#8230; 26 36 30 328 48<br />
+2014-01-01 1 &#8230; 22 20 28 313 50<br />
+2015-01-01 1 &#8230; 25 31 19 307 23</p>
+<p>ACCIDENT<br />
+UNIT<br />
+GEO Romania Sweden Slovenia Slovakia United Kingdom<br />
+FREQ Annual Annual Annual Annual Annual<br />
+TIME_PERIOD<br />
+2010-01-01 271 69 21 85 62<br />
+2011-01-01 217 54 11 84 78<br />
+2012-01-01 215 47 14 96 75<br />
+2013-01-01 180 43 13 94 84<br />
+2014-01-01 185 53 15 113 54<br />
+2015-01-01 141 40 14 87 40</p>
+<p>[6 rows x 210 columns]</p>
+<p>EDGAR Index</p>
+<p>EDGAR指数<br />
+** As of December 31st, the SEC disabled access via FTP. EDGAR support currently broken until re-write to use HTTPS. **</p>
+<p>**截至12月31日，SEC禁止通过FTP访问。 EDGAR重新编写使用HTTPS目前支持突破它 **</p>
+<p>Company filing index from EDGAR (SEC).</p>
+<p>来自EDGAR（SEC）的公司备案索引。</p>
+<p>The daily indices get large quickly (i.e. the set of daily indices from 1994 to 2015 is 1.5GB), and the FTP server will close the connection past some downloading threshold . In testing, pulling one year at a time works well. If the FTP server starts refusing your connections, you should be able to reconnect after waiting a few minutes.</p>
+<p>日常指数快速增长（即从1994年到2015年的日均指数为1.5GB），FTP服务器将关闭超过某个下载阈值的连接。在测试中，一次拉一年效果不错。如果FTP服务器开始拒绝您的连接，你可以等待几分钟后重新连接。</p>
+<p>TSP Fund Data</p>
+<p>TSP基金资料</p>
+<p>Download mutual fund index prices for the TSP.</p>
+<p>下载TSP的共同基金指数价格</p>
+<p>In [79]: import pandas_datareader.tsp as tsp</p>
+<p>In [80]: tspreader = tsp.TSPReader(start=&#8217;2015-10-1&#8242;, end=&#8217;2015-12-31&#8242;)</p>
+<p>In [81]: tspreader.read()<br />
+Out[81]:<br />
+L Income L 2020 L 2030 L 2040 L 2050 G Fund F Fund \<br />
+date<br />
+2015-10-01 17.5164 22.5789 24.2159 25.5690 14.4009 14.8380 17.0467<br />
+2015-10-02 17.5707 22.7413 24.4472 25.8518 14.5805 14.8388 17.0924<br />
+2015-10-05 17.6395 22.9582 24.7571 26.2306 14.8233 14.8413 17.0531<br />
+2015-10-06 17.6338 22.9390 24.7268 26.1898 14.7979 14.8421 17.0790<br />
+2015-10-07 17.6639 23.0324 24.8629 26.3598 14.9063 14.8429 17.0725<br />
+2015-10-08 17.6957 23.1364 25.0122 26.5422 15.0240 14.8437 17.0363<br />
+2015-10-09 17.7048 23.1646 25.0521 26.5903 15.0554 14.8445 17.0511<br />
+&#8230; &#8230; &#8230; &#8230; &#8230; &#8230; &#8230; &#8230;<br />
+2015-12-22 17.7493 23.1452 24.9775 26.4695 14.9611 14.9076 16.9607<br />
+2015-12-23 17.8015 23.3149 25.2208 26.7663 15.1527 14.9084 16.9421<br />
+2015-12-24 17.7991 23.3039 25.2052 26.7481 15.1407 14.9093 16.9596<br />
+2015-12-28 17.7950 23.2811 25.1691 26.7015 15.1101 14.9128 16.9799<br />
+2015-12-29 17.8270 23.3871 25.3226 26.8905 15.2319 14.9137 16.9150<br />
+2015-12-30 17.8066 23.3216 25.2267 26.7707 15.1556 14.9146 16.9249<br />
+2015-12-31 17.7733 23.2085 25.0635 26.5715 15.0263 14.9154 16.9549</p>
+<p>C Fund S Fund I Fund<br />
+date<br />
+2015-10-01 25.7953 34.0993 23.3202 NaN<br />
+2015-10-02 26.1669 34.6504 23.6367<br />
+2015-10-05 26.6467 35.3565 24.1475<br />
+2015-10-06 26.5513 35.1320 24.2294<br />
+2015-10-07 26.7751 35.6035 24.3671<br />
+2015-10-08 27.0115 35.9016 24.6406<br />
+2015-10-09 27.0320 35.9772 24.7723<br />
+&#8230; &#8230; &#8230; &#8230; &#8230;<br />
+2015-12-22 27.4848 35.0903 23.8679<br />
+2015-12-23 27.8272 35.5749 24.3623<br />
+2015-12-24 27.7831 35.6084 24.3272<br />
+2015-12-28 27.7230 35.4625 24.2816<br />
+2015-12-29 28.0236 35.8047 24.4757<br />
+2015-12-30 27.8239 35.5126 24.4184<br />
+2015-12-31 27.5622 35.2356 24.0952</p>
+<p>[62 rows x 11 columns]</p>
+<p>Nasdaq Trader Symbol Definitions</p>
+<p>纳斯达克交易者的符号的定义</p>
+<p>Download the latest symbols from Nasdaq.</p>
+<p>下载最近的纳斯达克交易者的符号</p>
+<p>Note that Nasdaq updates this file daily, and historical versions are not available. More information on the field definitions.</p>
+<p>注意：纳斯达克每日更新此文件，而历史版本不可用。更多信息参考字段定义。</p>
+<p>In [12]: from pandas_datareader.nasdaq_trader import get_nasdaq_symbols<br />
+In [13]: symbols = get_nasdaq_symbols()<br />
+In [14]: print(symbols.ix[&#8216;IBM&#8217;])<br />
+Nasdaq Traded True<br />
+Security Name International Business Machines Corporation Co&#8230;<br />
+Listing Exchange N<br />
+Market Category<br />
+ETF False<br />
+Round Lot Size 100<br />
+Test Issue False<br />
+Financial Status NaN<br />
+CQS Symbol IBM<br />
+NASDAQ Symbol IBM<br />
+NextShares False<br />
+Name: IBM, dtype: object<br />
+(编者注：trader就是为在Nasdaq参与交易的公司，个人分配的代码，以便于统一识别）</p>
+<div class="open_social_box share_box"><div class="share_button share_icon_weibo" onclick="share_button_click('//service.weibo.com/share/share.php?url=%URL%&title=%TITLE%&pic=%PIC%&appkey=&ralateUid=&language=zh_cn&searchPic=false',event)" title="分享到微博"></div><div class="share_button share_icon_qqzone" onclick="share_button_click('//sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=%URL%&title=%TITLE%&desc=&summary=&site=&pics=%PIC%',event)" title="分享到QQ空间"></div><div class="share_button share_icon_wechat" onclick="share_button_click('QRCODE',event)" title="分享到微信"></div><div class="share_button share_icon_qqemail" onclick="share_button_click('//mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=',event)" title="给我QQ邮箱发邮件"></div><div class="share_button share_icon_twitter" onclick="share_button_click('//twitter.com/home/?status=%TITLE%:%URL%',event)" title="分享到 Twitter"></div><div class="share_button share_icon_facebook" onclick="share_button_click('//www.facebook.com/sharer.php?u=%URL%&amp;t=%TITLE%',event)" title="分享到 Facebook"></div><div class="open_social_qrcode" onclick="jQuery(this).hide();"></div></div>            
+        </div><!-- .entry-content -->
+        <hr>
+                <aside class="entry-meta">
+                                                <span class="cat-links"><a href="http://www.wangluoshenghuo.com/category/jinrong/" rel="category tag">金融</a></span>
+                
+                
+            
+                            <span class="comments-link"><a href="http://www.wangluoshenghuo.com/2018/01/24/python%e4%b8%8bpandas_datareader%e5%8c%85%e5%a6%82%e4%bd%95%e4%bb%8e%e4%b8%8d%e5%90%8c%e7%9a%84%e6%95%b0%e6%8d%ae%e6%ba%90%e8%8e%b7%e5%8f%96%e5%90%84%e7%a7%8d%e9%87%91%e8%9e%8d%e6%95%b0%e6%8d%ae/#comments">1 Comment</a></span>
+            
+                    </aside>
+        
+</article><!-- #post-## -->
+        <nav class="navigation post-navigation" role="navigation">
+            <h1 class="screen-reader-text">Post navigation</h1>
+            <div class="nav-links">
+                <div class="nav-previous"><a href="http://www.wangluoshenghuo.com/2018/01/24/fred-%e5%9c%a3%e8%b7%af%e6%98%93%e6%96%af%e8%81%94%e9%82%a6%e5%82%a8%e8%93%84%e9%93%b6%e8%a1%8c/" rel="prev"><span class="meta-nav">&larr;</span>&nbsp;FRED-圣路易斯联邦储蓄银行</a></div><div class="nav-next"><a href="http://www.wangluoshenghuo.com/2018/01/24/sudo%e5%91%bd%e4%bb%a4%e5%92%8csudo%e7%94%a8%e6%88%b7%e7%9a%84%e9%85%8d%e7%bd%ae%e7%ae%80%e5%8d%95%e4%bb%8b%e7%bb%8d/" rel="next">sudo命令和sudo用户的配置简单介绍&nbsp;<span class="meta-nav">&rarr;</span></a></div>            </div><!-- .nav-links -->
+        </nav><!-- .navigation -->
+        
+<div id="comments" class="comments-area">
+
+    
+            <h2 class="comments-title">
+            One thought on &ldquo;<span>python下pandas_datareader包如何从不同的数据源获取各种金融数据</span>&rdquo;        </h2>
+            
+        <ol class="comment-list">
+            		<li id="comment-37" class="comment byuser comment-author-admin bypostauthor even thread-even depth-1">
+			<article id="div-comment-37" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='http://2.gravatar.com/avatar/ec7b4ee7ed42f821faea7a3452dba991?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/ec7b4ee7ed42f821faea7a3452dba991?s=96&#038;d=mm&#038;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />						<b class="fn">admin</b><span class="says">说道：</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://www.wangluoshenghuo.com/2018/01/24/python%e4%b8%8bpandas_datareader%e5%8c%85%e5%a6%82%e4%bd%95%e4%bb%8e%e4%b8%8d%e5%90%8c%e7%9a%84%e6%95%b0%e6%8d%ae%e6%ba%90%e8%8e%b7%e5%8f%96%e5%90%84%e7%a7%8d%e9%87%91%e8%9e%8d%e6%95%b0%e6%8d%ae/#comment-37">
+							<time datetime="2018-01-25T12:28:07+08:00">
+								2018年1月25日 下午12:28							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>执行谷歌和雅虎获得行情的代码，出现各种问题，通过升级包，还是有部分问题没有解决，原因是打不开获取行情的链接。</p>
+<p>注意，复制代码去执行，有些符号被wordpress自动转义为中文的符号，比如&#8221;就被穿成了中文的&#8221;,需要自己更正。</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-37' data-commentid="37" data-postid="291" data-belowelement="div-comment-37" data-respondelement="respond" aria-label='回复给admin'>回复</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+        </ol><!-- .comment-list -->
+            
+    
+    
+    	<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">发表评论 <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2018/01/24/python%E4%B8%8Bpandas_datareader%E5%8C%85%E5%A6%82%E4%BD%95%E4%BB%8E%E4%B8%8D%E5%90%8C%E7%9A%84%E6%95%B0%E6%8D%AE%E6%BA%90%E8%8E%B7%E5%8F%96%E5%90%84%E7%A7%8D%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE/#respond" style="display:none;">取消回复</a></small></h3>			<form action="http://www.wangluoshenghuo.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+				<div class="open_social_box login_box"></div><p class="comment-notes"><span id="email-notes">电子邮件地址不会被公开。</span> 必填项已用<span class="required">*</span>标注</p><p class="comment-form-comment"><label for="comment">评论</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea></p><p class="comment-form-author"><label for="author">姓名 <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" required='required' /></p>
+<p class="comment-form-email"><label for="email">电子邮件 <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" required='required' /></p>
+<p class="comment-form-url"><label for="url">站点</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="发表评论" /> <input type='hidden' name='comment_post_ID' value='291' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="3591a1669d" /></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="19"/></p>			</form>
+			</div><!-- #respond -->
+	
+</div><!-- #comments -->
+                    
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="http://www.wangluoshenghuo.com/">
+				<label>
+					<span class="screen-reader-text">搜索：</span>
+					<input type="search" class="search-field" placeholder="搜索&hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="搜索" />
+			</form></aside>		<aside id="recent-posts-2" class="widget widget_recent_entries">		<h3 class="widget-title">近期文章</h3>		<ul>
+											<li>
+					<a href="http://www.wangluoshenghuo.com/2019/10/21/pandas%e4%b8%adwhere%e6%96%b9%e6%b3%95%e7%9a%84%e4%bd%bf%e7%94%a8%e8%af%a6%e8%a7%a3/">pandas中where方法的使用详解</a>
+									</li>
+											<li>
+					<a href="http://www.wangluoshenghuo.com/2019/09/20/pyspark%e8%bf%90%e8%a1%8c%e5%bc%82%e5%b8%b8%e5%a4%84%e7%90%86%e8%bf%87%e7%a8%8b/">pyspark运行异常处理过程</a>
+									</li>
+											<li>
+					<a href="http://www.wangluoshenghuo.com/2019/09/18/%e7%be%8e%e5%85%83%e7%ac%a6%e5%8f%b7%e5%9c%a8linux%e7%9a%84%e6%84%8f%e4%b9%89/">美元符号$在linux的意义</a>
+									</li>
+											<li>
+					<a href="http://www.wangluoshenghuo.com/2019/09/11/mysql%e6%95%b0%e6%8d%ae%e5%ba%93%e5%af%bc%e5%87%ba%e8%bd%ac%e6%8d%a2%e4%b8%baxml%e6%a0%bc%e5%bc%8f/">mysql数据库导出转换为xml格式</a>
+									</li>
+											<li>
+					<a href="http://www.wangluoshenghuo.com/2019/09/06/awk%e5%ae%9e%e4%be%8b%e6%95%99%e7%a8%8b/">awk实例教程</a>
+									</li>
+					</ul>
+		</aside><aside id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">近期评论</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link"><a href='http://www.rbjmhe.cn/' rel='external nofollow' class='url'>奇特影院</a></span>发表在《<a href="http://www.wangluoshenghuo.com/2018/10/29/centos7%e5%ae%89%e8%a3%85cloudera-manager%e3%80%81cdh%e3%80%81jdk1-8%e5%8f%8aspark2-2%e8%ae%b0%e5%bd%95-day3/#comment-665">Centos7安装Cloudera Manager、CDH、JDK1.8及Spark2.2记录-day3</a>》</li><li class="recentcomments"><span class="comment-author-link"><a href='http://www.wangluoshenghuo.com/2019/03/08/%e4%bd%bf%e7%94%a8python%e6%8c%89%e7%85%a7%e6%9d%a1%e4%bb%b6%e8%bf%87%e6%bb%a4%e6%b2%aa%e6%b7%b1%e8%82%a1%e5%b8%82%e8%82%a1%e7%a5%a8%e4%bb%a3%e7%a0%81/' rel='external nofollow' class='url'>使用python按照条件过滤沪深股市股票代码 - 网络生活</a></span>发表在《<a href="http://www.wangluoshenghuo.com/2019/03/08/%e5%a6%82%e4%bd%95%e5%9c%a8%e4%ba%92%e8%81%94%e7%bd%91%e8%8e%b7%e5%8f%96%e8%82%a1%e7%a5%a8%e7%9b%b8%e5%85%b3%e6%95%b0%e6%8d%ae/#comment-616">如何在互联网获取股票相关数据</a>》</li><li class="recentcomments"><span class="comment-author-link"><a href='http://www.wangluoshenghuo.com/2018/11/27/using-an-internal-parcel-repository%e4%bd%bf%e7%94%a8parcel%e5%ba%93/' rel='external nofollow' class='url'>Using an Internal Parcel Repository使用parcel库 - 网络生活</a></span>发表在《<a href="http://www.wangluoshenghuo.com/2018/11/27/using-an-internal-package-repository%e4%bd%bf%e7%94%a8%e5%86%85%e9%83%a8%e7%9a%84%e5%ba%93/#comment-537">Using an Internal Package Repository使用内部的库</a>》</li><li class="recentcomments"><span class="comment-author-link">admin</span>发表在《<a href="http://www.wangluoshenghuo.com/2018/11/27/time-%e5%ae%89%e8%a3%85%e5%a4%a7%e6%95%b0%e6%8d%ae%e5%b9%b3%e5%8f%b0%e7%9a%84%e6%97%b6%e9%97%b4%e8%ae%be%e7%bd%ae/#comment-536">Time-安装大数据平台的时间设置</a>》</li><li class="recentcomments"><span class="comment-author-link"><a href='http://www.wangluoshenghuo.com/2018/11/27/cdh%e5%92%8ccm%e5%ae%9a%e5%88%b6%e5%ae%89%e8%a3%85%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88/' rel='external nofollow' class='url'>CDH和CM定制安装解决方案 - 网络生活</a></span>发表在《<a href="http://www.wangluoshenghuo.com/2018/11/27/using-an-internal-package-repository%e4%bd%bf%e7%94%a8%e5%86%85%e9%83%a8%e7%9a%84%e5%ba%93/#comment-535">Using an Internal Package Repository使用内部的库</a>》</li></ul></aside><aside id="archives-2" class="widget widget_archive"><h3 class="widget-title">文章归档</h3>		<ul>
+				<li><a href='http://www.wangluoshenghuo.com/2019/10/'>2019年十月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2019/09/'>2019年九月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2019/08/'>2019年八月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2019/07/'>2019年七月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2019/06/'>2019年六月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2019/05/'>2019年五月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2019/04/'>2019年四月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2019/03/'>2019年三月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2019/02/'>2019年二月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2019/01/'>2019年一月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2018/12/'>2018年十二月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2018/11/'>2018年十一月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2018/10/'>2018年十月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2018/09/'>2018年九月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2018/08/'>2018年八月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2018/07/'>2018年七月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2018/06/'>2018年六月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2018/05/'>2018年五月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2018/04/'>2018年四月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2018/03/'>2018年三月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2018/02/'>2018年二月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2018/01/'>2018年一月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2017/12/'>2017年十二月</a></li>
+	<li><a href='http://www.wangluoshenghuo.com/2017/11/'>2017年十一月</a></li>
+		</ul>
+			</aside><aside id="categories-2" class="widget widget_categories"><h3 class="widget-title">分类目录</h3>		<ul>
+				<li class="cat-item cat-item-7"><a href="http://www.wangluoshenghuo.com/category/biancheng/java/" title="Java具有简单性、面向对象、分布式、健壮性、安全性、平台独立与可移植性、多线程、动态性等特点">JAVA</a>
+</li>
+	<li class="cat-item cat-item-10"><a href="http://www.wangluoshenghuo.com/category/caozuoxitong/linux/" title="是一个基于POSIX和UNIX的多用户、多任务、支持多线程和多CPU的操作系统">Linux</a>
+</li>
+	<li class="cat-item cat-item-70"><a href="http://www.wangluoshenghuo.com/category/math/mathematica/" title="Mathematica是一款科学计算软件，很好地结合了数值和符号计算引擎、图形系统、编程语言、文本系统、和与其他应用程序的高级连接。很多功能在相应领域内处于世界领先地位，它也是使用最广泛的数学软件之一。Mathematica的发布标志着现代科技计算的开始。Mathematica是世界上通用计算系统中最强大的系统。自从1988发布以来，它已经对如何在科技和其它领域运用计算机产生了深刻的影响。
+Mathematica 和 MATLAB、Maple 并称为三大数学软件。">mathematica</a>
+</li>
+	<li class="cat-item cat-item-124"><a href="http://www.wangluoshenghuo.com/category/biancheng/python/pandas/" >pandas</a>
+</li>
+	<li class="cat-item cat-item-6"><a href="http://www.wangluoshenghuo.com/category/biancheng/python/" title="Python具有丰富和强大的库。它常被昵称为胶水语言">Python</a>
+</li>
+	<li class="cat-item cat-item-123"><a href="http://www.wangluoshenghuo.com/category/sparksparksql/" >spark,sparksql</a>
+</li>
+	<li class="cat-item cat-item-11"><a href="http://www.wangluoshenghuo.com/category/caozuoxitong/windows/" title="Windows是微软公司采用图形化窗口界面的操作系统">Windows</a>
+</li>
+	<li class="cat-item cat-item-83"><a href="http://www.wangluoshenghuo.com/category/yunjisuan/" title="公有云，私有云，商业云，免费云">云计算</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://www.wangluoshenghuo.com/category/hulianwang/" title="生活网络化，你中有我，我中有你">互联网</a>
+</li>
+	<li class="cat-item cat-item-22"><a href="http://www.wangluoshenghuo.com/category/wangluo/jiaohuanji/" title="交换机（Switch）意为“开关”是一种用于电（光）信号转发的网络设备。它可以为接入交换机的任意两个网络节点提供独享的电信号通路。最常见的交换机是以太网交换机。其他常见的还有电话语音交换机、光纤交换机等。">交换机</a>
+</li>
+	<li class="cat-item cat-item-51"><a href="http://www.wangluoshenghuo.com/category/jinrong/zhaiquan/" title="国债，企业债，短期，长期，国内，国外等一系列债券。">债券</a>
+</li>
+	<li class="cat-item cat-item-68"><a href="http://www.wangluoshenghuo.com/category/%e5%81%a5%e5%ba%b7/" >健康</a>
+</li>
+	<li class="cat-item cat-item-27"><a href="http://www.wangluoshenghuo.com/category/qiche/gongxiangqiche/" title="汽车共享，是指许多人合用一辆车，即开车人对车辆只有使用权，而没有所有权，有点类似于在租车行里短时间包车。">共享汽车</a>
+</li>
+	<li class="cat-item cat-item-43"><a href="http://www.wangluoshenghuo.com/category/tushu/" title="各类图书，英文，中文，科学，计算机，生活，学习等好书">图书</a>
+</li>
+	<li class="cat-item cat-item-38"><a href="http://www.wangluoshenghuo.com/category/jinrong/waihui/" title="外汇交易，外汇保证金，外汇基础，外汇教程">外汇</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://www.wangluoshenghuo.com/category/yingyongruanjian/" title="是用户可以使用的各种程序设计语言，以及用各种程序设计语言编制的应用程序的集合">应用软件</a>
+</li>
+	<li class="cat-item cat-item-14"><a href="http://www.wangluoshenghuo.com/category/shouji/" title="网络生活的终端">手机</a>
+</li>
+	<li class="cat-item cat-item-49"><a href="http://www.wangluoshenghuo.com/category/shouji/shoujiruanjian/" title="各种手机应用软件，功能，口碑">手机app</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://www.wangluoshenghuo.com/category/caozuoxitong/" title="操作系统（Operating System，简称OS）是管理和控制计算机硬件与软件资源的计算机程序，是直接运行在“裸机”上的最基本的系统软件，任何其他软件都必须在操作系统的支持下才能运行。">操作系统</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://www.wangluoshenghuo.com/category/hulianwang/zhifubao/" title="支付宝是从事第三方支付平台的网络技术有限公司。">支付宝</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="http://www.wangluoshenghuo.com/category/math/" title="小学，初中，高中，大学，工作，生活相关数学知识，理论，用途，问答等等。">数学</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://www.wangluoshenghuo.com/category/yingyongruanjian/shujuku/" title="数据库(Database)是按照数据结构来组织、存储和管理数据的仓库">数据库</a>
+</li>
+	<li class="cat-item cat-item-76"><a href="http://www.wangluoshenghuo.com/category/%e6%97%85%e6%b8%b8/" >旅游</a>
+</li>
+	<li class="cat-item cat-item-40"><a href="http://www.wangluoshenghuo.com/category/jinrong/qiquan/" title="期权是指期权合约的买方有权利根据合约内容，在规定时间（到期日）以执行价格向期权合约的卖方买入指定数量的标的资产（房产、股票等）">期权</a>
+</li>
+	<li class="cat-item cat-item-41"><a href="http://www.wangluoshenghuo.com/category/jinrong/qihuo/" title="期货（Futures）与现货完全不同，现货是实实在在可以交易的货（商品），期货主要不是货，而是以某种大众产品如棉花、大豆、石油等及金融资产如股票、债券等为标的标准化可交易合约。">期货</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://www.wangluoshenghuo.com/category/uncategorized/" >未分类</a>
+</li>
+	<li class="cat-item cat-item-26"><a href="http://www.wangluoshenghuo.com/category/qiche/" title="电动汽车，燃料汽车，混动汽车，共享汽车，越野车，mpv，suv">汽车</a>
+</li>
+	<li class="cat-item cat-item-15"><a href="http://www.wangluoshenghuo.com/category/hulianwang/taobao/" title="淘宝网络生活的代名词，网购零售平台.">淘宝</a>
+</li>
+	<li class="cat-item cat-item-62"><a href="http://www.wangluoshenghuo.com/category/youxi/" title="网络游戏，单机游戏，硬盘游戏，各类游戏，游戏害人啊">游戏</a>
+</li>
+	<li class="cat-item cat-item-37"><a href="http://www.wangluoshenghuo.com/category/wangluo/yidongwangluo/" title="GSM,CDMA,2G,3G,4G,5G等网络">移动网络</a>
+</li>
+	<li class="cat-item cat-item-104"><a href="http://www.wangluoshenghuo.com/category/%e7%bb%9f%e8%ae%a1/" >统计</a>
+</li>
+	<li class="cat-item cat-item-60"><a href="http://www.wangluoshenghuo.com/category/qiche/weihubaoyang/" title="汽车的维护和保养">维护保养</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://www.wangluoshenghuo.com/category/biancheng/" title="代码，语言，创建和改变虚拟世界">编程</a>
+</li>
+	<li class="cat-item cat-item-2"><a href="http://www.wangluoshenghuo.com/category/wangluo/" title="各式各样的网络连接我们丰富多彩的生活。">网络</a>
+</li>
+	<li class="cat-item cat-item-39"><a href="http://www.wangluoshenghuo.com/category/jinrong/gupiao/" title="美股，港股，英股，德股，日股，A股，B股等">股票</a>
+</li>
+	<li class="cat-item cat-item-75"><a href="http://www.wangluoshenghuo.com/category/english/" title="英语学习">英语</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="http://www.wangluoshenghuo.com/category/wangluo/luyouxieyi/" title="IS-IS,BGP,TCP/IP,IGP,ARP等网络路由协议">路由协议</a>
+</li>
+	<li class="cat-item cat-item-23"><a href="http://www.wangluoshenghuo.com/category/wangluo/luyouqi/" title="路由器（Router）又称网关设备（Gateway）是用于连接多个逻辑上分开的网络，所谓逻辑网络是代表一个单独的网络或者一个子网。当数据从一个子网传输到另一个子网时，可通过路由器的路由功能来完成。">路由器</a>
+</li>
+	<li class="cat-item cat-item-61"><a href="http://www.wangluoshenghuo.com/category/guidaojiaotong/" title="火车，高铁，动车，地铁，轻轨，有轨电车">轨道交通</a>
+</li>
+	<li class="cat-item cat-item-110"><a href="http://www.wangluoshenghuo.com/category/%e9%80%9a%e4%bf%a1/" >通信</a>
+</li>
+	<li class="cat-item cat-item-16"><a href="http://www.wangluoshenghuo.com/category/jinrong/" title="什么外汇，期权，股票，期货等等，互联网金融投资，投机等等。">金融</a>
+</li>
+	<li class="cat-item cat-item-57"><a href="http://www.wangluoshenghuo.com/category/jinrong/yinhang/" title="中央银行，国内银行，国外银行等">银行</a>
+</li>
+	<li class="cat-item cat-item-42"><a href="http://www.wangluoshenghuo.com/category/%e9%a3%9f%e5%93%81/" >食品</a>
+</li>
+		</ul>
+			</aside><aside id="meta-2" class="widget widget_meta"><h3 class="widget-title">功能</h3>			<ul>
+						<li><a rel="nofollow" href="http://www.wangluoshenghuo.com/wp-login.php">登录</a></li>
+			<li><a href="http://www.wangluoshenghuo.com/feed/">文章<abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://www.wangluoshenghuo.com/comments/feed/">评论<abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="https://cn.wordpress.org/" title="基于WordPress，一个优美、先进的个人信息发布平台。">WordPress.org</a></li>			</ul>
+			</aside></div><!-- #secondary -->
+		</div><!-- .col-full -->
+	</div><!-- #content -->
+	
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="col-full">
+                    <hr>
+                    		<div class="site-info">
+			&copy; 网络生活 2019						<br /> 			
+                            Theme: creativefocus by <a href="http://milentijevic.com/">Mladjo</a>.
+					</div><!-- .site-info -->
+		
+		</div><!-- .col-full -->
+	</footer><!-- #colophon -->
+        
+        
+    </div><!-- #page -->
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"http:\/\/www.wangluoshenghuo.com\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.wangluoshenghuo.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=5.1.4'></script>
+<script type='text/javascript' src='http://www.wangluoshenghuo.com/wp-content/themes/creative-focus/assets/js/scripts.min.js?ver=1.2.3'></script>
+<script type='text/javascript' src='http://www.wangluoshenghuo.com/wp-content/themes/creative-focus/assets/js/skip-link-focus-fix.js?ver=1.2.3'></script>
+<script type='text/javascript' src='http://www.wangluoshenghuo.com/wp-includes/js/comment-reply.min.js?ver=5.1.3'></script>
+<script type='text/javascript' src='http://www.wangluoshenghuo.com/wp-content/plugins/open-social/images/os.js?ver=5.1.3'></script>
+<script type='text/javascript' src='http://www.wangluoshenghuo.com/wp-includes/js/wp-embed.min.js?ver=5.1.3'></script>
+<script async="async" type='text/javascript' src='http://www.wangluoshenghuo.com/wp-content/plugins/akismet/_inc/form.js?ver=4.1.2'></script>
+
+</body>
+</html>
